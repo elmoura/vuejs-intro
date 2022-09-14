@@ -33,7 +33,7 @@
               <p>{{comment.message}}</p>
 
               <div>
-                <a href="#" title="Excluir" v-on:click.prevent="deleteComment(index)">Excluir</a>
+                <a title="Excluir" v-on:click.prevent="deleteComment(index)">Excluir</a>
               </div>
             </div>
           </div>
@@ -57,7 +57,7 @@
       `,
       data() {
         const screenInteractionProps = {
-          name: '',
+          author: '',
           comment: '',
         };
 
@@ -77,8 +77,6 @@
             message: this.comment,
           })
 
-          console.log('comments =>', this.allComments)
-
           this.author = '';
           this.comment = '';
         },
@@ -88,13 +86,17 @@
       },
       computed: {
          allComments () {
-          console.log(this.comments)
           return this.comments.map((comment) => ({
             ...comment,
             author: comment.author.trim() === '' ? 'Anônimo': comment.author
           }));
-         }
+         },
       },
+      watch: {
+        comments(comments) {
+          console.log(comments)
+        }
+      }
     }).mount('#app');
   </script>
 </body>
